@@ -4,12 +4,17 @@ import java.util.List;
 import java.util.zip.*;
 import java.nio.file.*;
 
-import static java.nio.file.Files.createDirectory;
-import static java.nio.file.Files.createFile;
-
-
 public class Main {
+    static StringBuilder stringBuilder;
+
     public static void main(String[] args) {
+        stringBuilder = new StringBuilder();
+        List<String> listDirectories = List.of("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\src");
+
+        for (String dir : listDirectories) {
+            createDirectory(dir);
+        }
+        createFile("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\src\\", "Main.java");
 
         File gamesFolder = new File("Games");
         File srcFolder = new File(gamesFolder, "src");
@@ -17,11 +22,11 @@ public class Main {
         File savegamesFolder = new File(gamesFolder, "savegames");
         File tempFolder = new File(gamesFolder, "temp");
 
-        if (gamesFolder.mkdirs() &&
-                srcFolder.mkdirs() &&
-                resFolder.mkdirs() &&
-                savegamesFolder.mkdirs() &&
-                tempFolder.mkdirs()) {
+        if (checkIsCreateDirectory(gamesFolder) &&
+                checkIsCreateDirectory(srcFolder) &&
+                checkIsCreateDirectory(resFolder) &&
+                checkIsCreateDirectory(savegamesFolder) &&
+                checkIsCreateDirectory(tempFolder)) {
 
             File mainFolder = new File(srcFolder, "main");
             mainFolder.mkdirs();
@@ -46,24 +51,42 @@ public class Main {
         GameProgress game2 = new GameProgress(90, 4, 15, 200.0);
         GameProgress game3 = new GameProgress(80, 5, 20, 250.75);
 
-        saveGame("C:\\Users\\HP\\Desktop", game1);
-        saveGame("C:\\Users\\HP\\Desktop", game2);
-        saveGame("C:\\Users\\HP\\Desktop", game3);
+        saveGame("C:\\Users\\HP//IdeaProjects\\Installation", game1);
+        saveGame("C:\\Users\\HP//IdeaProjects\\Installation", game2);
+        saveGame("C:\\Users\\HP//IdeaProjects\\Installation", game3);
 
         String zipFilePath = "C:\\Users\\HP\\Desktop\\savegames.zip";
         createZipArchive(savegamesFolder.getAbsolutePath(), zipFilePath);
 
         deleteOriginalSaveFiles(savegamesFolder.getAbsolutePath());
+        writeLogToFile(stringBuilder.toString(), new File("C:\\Users\\HP\\IdeaProjects\\Installation\\temp.txt"));
 
+
+        File file = new File("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\src\\Main.java");
+        if (file.canRead() && file.canWrite()) {
+            System.out.println("Файл доступен для чтения и записи.");
+        } else {
+            System.out.println("Невозможно прочитать или записать файл.");
+        }
+
+    }
+
+    private static void createDirectory(String path) {
+        File f = new File(path);
+        if (f.mkdirs()) {
+            stringBuilder.append("Директория " + f + "успешно создана: ");
+        } else {
+            stringBuilder.append("Ошибка при создании: " + f.getName());
+        }
     }
 
     private static boolean checkIsCreateDirectory(File directory) {
         if (!directory.exists()) {
             if (directory.mkdirs()) {
-                System.out.println("Директория " + directory.getName() + " успешно создана.");
+                stringBuilder.append("Директория" + directory.getName() + "успешно создана");
                 return true;
             } else {
-                System.err.println("Ошибка при создании директории " + directory.getName());
+                stringBuilder.append("Ошибка при создании директории " + directory.getName());
                 return false;
             }
         }
@@ -73,15 +96,40 @@ public class Main {
     private static boolean checkAndCreateFile(File file) {
         try {
             if (file.createNewFile()) {
-                System.out.println("Файл " + file.getName() + " успешно создан.");
+                System.out.println("Файл " + file.getName() + "успешно создан");
                 return true;
             } else {
-                System.err.println("Ошибка при создании файла " + file.getName() + ". Файл уже существует.");
+                System.err.println("Ошибка при создании файла " + file.getName() + "Фвйлл уже существует");
                 return false;
             }
         } catch (IOException e) {
-            System.err.println("Ошибка при создании файла " + file.getName() + ": " + e.getMessage());
+            System.err.println("Ошибка при создании файла" + file.getName() + ": " + e.getMessage());
             return false;
+        }
+    }
+
+    private static void createFile(String path, String fileName) {
+        File f = new File(path, fileName);
+        try {
+            if (f.createNewFile()) {
+                stringBuilder.append("Создан файл: ").append(fileName).append("\n");
+            } else {
+                stringBuilder.append("Ошибка при создании файла ").append(f.getName()).append("\n");
+            }
+        } catch (IOException e) {
+            stringBuilder.append("Ошибка при создании файла ").append(f.getName()).append(": ").append(e.getMessage()).append("\n");
+        }
+    }
+
+
+
+    private static void createFileOrDirectory(String path) {
+        File f = new File(path);
+        if (f.mkdirs()) {
+            stringBuilder.append("Директория " + f + "успешно создана: ");
+        } else {
+            stringBuilder.append("Ошибка при создании: " + f.getName());
+            stringBuilder.append("Директория уже существует: " + f.getName());
         }
     }
 
@@ -97,12 +145,13 @@ public class Main {
 
     private static void writeLogToFile(String log, File file) {
         try (FileWriter writer = new FileWriter(file)) {
-            writer.write(log);
+            writer.write(stringBuilder.toString());
             System.out.println("Лог успешно записан в файл " + file.getName());
         } catch (IOException e) {
             System.err.println("Ошибка при записи лога в файл " + file.getName() + ": " + e.getMessage());
         }
     }
+
 
     private static void createZipArchive(String sourceFolderPath, String zipFilePath) {
         File sourceFolder = new File(sourceFolderPath);
@@ -129,7 +178,7 @@ public class Main {
             File[] files = sourceFile.listFiles();
             if (files != null) {
                 for (File file : files) {
-                    addFilesToZip(file,  parentPath + File.separator + file.getName(), zos);
+                    addFilesToZip(file, parentPath + File.separator + file.getName(), zos);
                 }
             }
         } else {
