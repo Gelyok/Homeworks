@@ -38,6 +38,7 @@ public class Main {
                 System.err.println("Не удалось создать файл: " + e.getMessage());
             }
 
+
             new File(resFolder, "drawables").mkdirs();
             new File(resFolder, "vectors").mkdirs();
             new File(resFolder, "icons").mkdirs();
@@ -51,12 +52,12 @@ public class Main {
         GameProgress game2 = new GameProgress(90, 4, 15, 200.0);
         GameProgress game3 = new GameProgress(80, 5, 20, 250.75);
 
-        saveGame("C:\\Users\\HP//IdeaProjects\\Installation", game1);
-        saveGame("C:\\Users\\HP//IdeaProjects\\Installation", game2);
-        saveGame("C:\\Users\\HP//IdeaProjects\\Installation", game3);
+        saveGame("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames\\game1.dat", game1);
+        saveGame("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames\\game2.dat", game2);
+        saveGame("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames\\game3.dat", game3);
 
         String zipFilePath = "C:\\Users\\HP\\Desktop\\savegames.zip";
-        createZipArchive(savegamesFolder.getAbsolutePath(), zipFilePath);
+        createZipArchive("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames\\", zipFilePath);
 
         deleteOriginalSaveFiles(savegamesFolder.getAbsolutePath());
         writeLogToFile(stringBuilder.toString(), new File("C:\\Users\\HP\\IdeaProjects\\Installation\\temp.txt"));
@@ -69,6 +70,9 @@ public class Main {
             System.out.println("Невозможно прочитать или записать файл.");
         }
 
+    }
+
+    private static void zipFiles(String s, List<String> filesToZip) {
     }
 
     private static void createDirectory(String path) {
@@ -122,7 +126,6 @@ public class Main {
     }
 
 
-
     private static void createFileOrDirectory(String path) {
         File f = new File(path);
         if (f.mkdirs()) {
@@ -134,7 +137,7 @@ public class Main {
     }
 
     private static void saveGame(String filePath, GameProgress game) {
-        try (FileOutputStream fos = new FileOutputStream(filePath + File.separator + "game.dat");
+        try (FileOutputStream fos = new FileOutputStream(filePath);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(game);
             System.out.println("Игра успешно сохранена в " + filePath);
@@ -155,6 +158,11 @@ public class Main {
 
     private static void createZipArchive(String sourceFolderPath, String zipFilePath) {
         File sourceFolder = new File(sourceFolderPath);
+        if (!sourceFolder.exists() || !sourceFolder.isDirectory()) {
+            System.err.println("Ошибка: указанный путь не является директорией или не существует.");
+            return;
+        }
+
         List<File> sourceFiles = Arrays.asList(sourceFolder.listFiles());
 
         try {
@@ -196,6 +204,11 @@ public class Main {
 
     private static void deleteOriginalSaveFiles(String folderPath) {
         File folder = new File(folderPath);
+        if (!folder.exists() || !folder.isDirectory()) {
+            System.err.println("Ошибка: указанный путь не является директорией или не существует.");
+            return;
+        }
+
         File[] files = folder.listFiles();
         if (files != null) {
             for (File file : files) {
