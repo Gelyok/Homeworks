@@ -1,1 +1,6 @@
-Ошибка при создании: srcОшибка при создании файла Main.java
+Директория C:\Users\HP\IdeaProjects\Installation\Games\srcуже создана.Директория C:\Users\HP\IdeaProjects\Installation\Games\src\mainуже создана.Директория C:\Users\HP\IdeaProjects\Installation\Games\src\testуже создана.Директория C:\Users\HP\IdeaProjects\Installation\Games\resуже создана.Директория C:\Users\HP\IdeaProjects\Installation\Games\res\drawablesуже создана.Директория C:\Users\HP\IdeaProjects\Installation\Games\res\vectorsуже создана.Директория C:\Users\HP\IdeaProjects\Installation\Games\res\iconsуже создана.Директория C:\Users\HP\IdeaProjects\Installation\Games\savegamesуже создана.Директория C:\Users\HP\IdeaProjects\Installation\Games\tempуже создана.Файл Main.javaуже был создан Файл Util.javaуже был создан Файл temp.txtуже был создан Директория Gamesуже существует
+Директория srcуже существует
+Директория resуже существует
+Директория savegamesуже существует
+Директория tempуже существует
+Файл Main.javaуже был создан Файл Utils.javaуже был создан Файл temp.txtуже был создан 
