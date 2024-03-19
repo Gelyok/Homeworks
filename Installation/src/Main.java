@@ -37,22 +37,18 @@ public class Main {
         saveGame("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames\\game2.dat", game2);
         saveGame("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames\\game3.dat", game3);
 
+        for (String dir : listDirectories) {
+            createDirectory(dir);
+        }
     }
 
-    //Проверяет существование и создает директорию, если ее нет
-    private static boolean checkIsCreateDirectory(File directory) {
-        File f = new File(directory.getPath());
-        if (!directory.exists()) {
-            if (directory.mkdirs()) {
-                stringBuilder.append("Директория" + directory.getName() + " успешно создана\n");
-                return true;
-            } else {
-                stringBuilder.append("Ошибка при создании директории " + directory.getName() + "\n");
-                return false;
-            }
-        } else {
-            stringBuilder.append("Директория " + directory.getName() + " уже существует\n");
-            return true;
+    private static void createDirectory(String path) {
+        Path directoryPath = Paths.get(path);
+        try {
+            Files.createDirectories(directoryPath);
+            stringBuilder.append("Директория " + directoryPath + " успешно создана\n");
+        } catch (IOException e) {
+            stringBuilder.append("Ошибка при создании директории " + directoryPath + ": " + e.getMessage() + "\n");
         }
     }
 
@@ -85,7 +81,7 @@ public class Main {
             } else stringBuilder.append("Файл " + fileName + " уже был создан ");
         } catch (IOException e) {
             stringBuilder.append("Ошибка при создании файла ").append(f.getName()).append(": ").append(e.getMessage()).append("\n");
-            throw new FileNotFoundException();
+            e.printStackTrace();
         }
     }
 
@@ -97,6 +93,7 @@ public class Main {
             System.out.println("Игра успешно сохранена в " + filePath);
         } catch (IOException e) {
             System.err.println("Ошибка при сохранении игры: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
