@@ -7,6 +7,6 @@
 Директория C:\Users\HP\IdeaProjects\Installation\Games\res\icons успешно создана
 Директория C:\Users\HP\IdeaProjects\Installation\Games\savegames успешно создана
 Директория C:\Users\HP\IdeaProjects\Installation\Games\temp успешно создана
-Файл Main.java был создан
-Файл Util.java был создан
-Файл temp.txt был создан
+Ошибка при создании файла Main.java
+Ошибка при создании файла Util.java
+Ошибка при создании файла temp.txt
