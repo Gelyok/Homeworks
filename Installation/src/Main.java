@@ -3,16 +3,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.zip.*;
 import java.nio.file.*;
-import java.io.File;
-
 import static java.nio.file.Files.createDirectory;
 import static java.nio.file.Files.createFile;
 
 public class Main {
-    private static StringWriter stringBuilder;
+    private static StringBuilder stringBuilder;
 
     public static void main(String[] args) throws FileNotFoundException {
-        stringBuilder = new StringWriter();
+        stringBuilder = new StringBuilder();
         List<String> listDirectories = Arrays.asList("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\src",
                 "C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\src\\main",
                 "C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\src\\test",
@@ -23,11 +21,31 @@ public class Main {
                 "C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames",
                 "C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\temp");
 
+        for (String dir : listDirectories) {
+            createDirectory(dir);
+        }
 
-        createFile("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\src\\", "Main.java");
-        createFile("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\src\\", "Util.java");
-        createFile("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\src\\", "temp.txt");
+        System.out.println(stringBuilder.toString());
 
+        createFile("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\src\\main", "Main.java");
+        createFile("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\src\\main", "Util.java");
+        createFile("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\temp", "temp.txt");
+
+        writeLogToFile("Директория C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\src успешно создана\n" +
+                        "Директория C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\src\\main успешно создана\n" +
+                        "Директория C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\src\\test успешно создана\n" +
+                        "Директория C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\res успешно создана\n" +
+                        "Директория C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\res\\drawables успешно создана\n" +
+                        "Директория C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\res\\vectors успешно создана\n" +
+                        "Директория C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\res\\icons успешно создана\n" +
+                        "Директория C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames успешно создана\n" +
+                        "Директория C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\temp успешно создана\n" +
+                        "Файл Main.java был создан\n" +
+                        "Файл Util.java был создан\n" +
+                        "Файл temp.txt был создан",
+                new File("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\temp\\temp.txt"));
+
+        createZipArchive("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames", "C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames\\savegames.zip");
 
         GameProgress game1 = new GameProgress(100, 3, 10, 150.5);
         GameProgress game2 = new GameProgress(90, 4, 15, 200.0);
@@ -37,9 +55,6 @@ public class Main {
         saveGame("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames\\game2.dat", game2);
         saveGame("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames\\game3.dat", game3);
 
-        for (String dir : listDirectories) {
-            createDirectory(dir);
-        }
     }
 
     private static void createDirectory(String path) {
@@ -49,38 +64,27 @@ public class Main {
             stringBuilder.append("Директория " + directoryPath + " успешно создана\n");
         } catch (IOException e) {
             stringBuilder.append("Ошибка при создании директории " + directoryPath + ": " + e.getMessage() + "\n");
+            e.printStackTrace();
         }
     }
 
-    //Проверяет существование и создает файл, если его нет
-    private static boolean checkAndCreateFile(File file) {
-        try {
-            if (file.createNewFile()) {
-                System.out.println("Файл " + file.getName() + " успешно создан");
-                return true;
-            } else {
-                System.err.println("Ошибка при создании файла " + file.getName() + " Файл уже существует");
-                return false;
-            }
-        } catch (IOException e) {
-            System.err.println("Ошибка при создании файла" + file.getName() + ": " + e.getMessage());
-            return false;
-        }
-    }
 
     //Создает файл по указанному пути и имени
-    private static void createFile(String path, String fileName) throws FileNotFoundException {
-        File f = new File(path, fileName);
+    private static void createFile(String directoryPath, String fileName) {
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        File file = new File(directory, fileName);
         try {
-            if (!f.exists()) {
-                if (f.createNewFile()) {
-                    stringBuilder.append("Создан файл: ").append(fileName).append("\n");
-                } else {
-                    stringBuilder.append("Ошибка при создании файла ").append(f.getName()).append("\n");
-                }
-            } else stringBuilder.append("Файл " + fileName + " уже был создан ");
+            if (file.createNewFile()) {
+                stringBuilder.append("Создан файл: ").append(fileName).append("\n");
+            } else {
+                stringBuilder.append("Ошибка при создании файла ").append(fileName).append("\n");
+            }
         } catch (IOException e) {
-            stringBuilder.append("Ошибка при создании файла ").append(f.getName()).append(": ").append(e.getMessage()).append("\n");
+            stringBuilder.append("Ошибка при создании файла ").append(fileName).append(": ").append(e.getMessage()).append("\n");
             e.printStackTrace();
         }
     }
@@ -98,12 +102,13 @@ public class Main {
     }
 
     //Записывает лог в файл
-    private static void writeLogToFile(String log, File file) {
+    private static void writeLogToFile (String log, File file) {
         try (FileWriter writer = new FileWriter(file)) {
-            writer.write(stringBuilder.toString());
+            writer.write(log);
             System.out.println("Лог успешно записан в файл " + file.getName());
         } catch (IOException e) {
             System.err.println("Ошибка при записи лога в файл " + file.getName() + ": " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -127,9 +132,11 @@ public class Main {
 
             zos.close();
             fos.close();
+
             System.out.println("Архив успешно создан: " + zipFilePath);
         } catch (IOException e) {
             System.err.println("Ошибка при создании архива zip: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -173,11 +180,14 @@ public class Main {
                         System.err.println("Не удалось удалить файл: " + file.getName());
                     }
                 }
+
+                    writeLogToFile(stringBuilder.toString(), new File(folderPath + "\\temp.txt"));
+                }
             }
         }
-
-        writeLogToFile(stringBuilder.toString(), new File("C:\\Users\\HP\\IdeaProjects\\Installation\\temp.txt"));
     }
-}
+
+
+
 
 
