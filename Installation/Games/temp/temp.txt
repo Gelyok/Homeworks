@@ -1,12 +1,1 @@
-Директория C:\Users\HP\IdeaProjects\Installation\Games\src успешно создана
-Директория C:\Users\HP\IdeaProjects\Installation\Games\src\main успешно создана
-Директория C:\Users\HP\IdeaProjects\Installation\Games\src\test успешно создана
-Директория C:\Users\HP\IdeaProjects\Installation\Games\res успешно создана
-Директория C:\Users\HP\IdeaProjects\Installation\Games\res\drawables успешно создана
-Директория C:\Users\HP\IdeaProjects\Installation\Games\res\vectors успешно создана
-Директория C:\Users\HP\IdeaProjects\Installation\Games\res\icons успешно создана
-Директория C:\Users\HP\IdeaProjects\Installation\Games\savegames успешно создана
-Директория C:\Users\HP\IdeaProjects\Installation\Games\temp успешно создана
-Ошибка при создании файла Main.java
-Ошибка при создании файла Util.java
-Ошибка при создании файла temp.txt
+Директория C:\Users\HP\IdeaProjects\Installation\Games\src успешно созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\src\main успешно созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\src\test не созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\res успешно созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\res\drawables успешно созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\res\vectors успешно созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\res\icons успешно созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\savegames успешно созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\temp успешно созданаФайл Main.java успешно созданФайл Util.java успешно созданФайл temp.txt успешно создан
