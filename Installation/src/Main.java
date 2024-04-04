@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.zip.*;
 import java.nio.file.*;
 import java.io.Serializable;
+
 import static java.nio.file.Files.createDirectory;
 import static java.nio.file.Files.createFile;
 
@@ -38,6 +39,9 @@ public class Main {
             System.out.println(ex.getMessage());
         }
 
+        String log = stringBuilder.toString();
+        writeLogToFile(log, "C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\temp\\temp.txt");
+
         GameProgress game1 = new GameProgress(100, 3, 10, 150.5);
         GameProgress game2 = new GameProgress(90, 4, 15, 200.0);
         GameProgress game3 = new GameProgress(80, 5, 20, 250.75);
@@ -48,20 +52,24 @@ public class Main {
 
         createZipArchive("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames", "C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames\\savegames.zip");
 
+        deleteFile("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames\\game1.dat");
+        deleteFile("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames\\game2.dat");
+        deleteFile("C:\\Users\\HP\\IdeaProjects\\Installation\\Games\\savegames\\game3.dat");
+
 
     }
 
     private static void createDirectory(String path) {
         File file = new File(path);
-        if (file.exists()) {
-            stringBuilder.append("Директория " + path + " успешно создана");
-        } else stringBuilder.append("Директория " + path + " не создана");
+        if (file.mkdir()) {
+            stringBuilder.append("Директория " + path + " успешно создана\n");
+        } else stringBuilder.append("Ошибка при создании директории " + path + "\n");
     }
 
     //Создает файл по указанному пути и имени
     private static void createFile(String directoryPath, String fileName) {
-        File directory = new File(directoryPath, fileName);
-        if (directory.exists()) {
+        File file = new File(directoryPath + "/" + fileName);
+        if (file.exists()) {
             stringBuilder.append("Файл " + fileName + " успешно создан");
         } else stringBuilder.append("Файл " + fileName + " не создан");
     }
@@ -75,6 +83,16 @@ public class Main {
             System.out.println("Игра успешно сохранена в " + filePath);
         } catch (IOException e) {
             System.err.println("Ошибка при сохранении игры: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private static void writeLogToFile(String log, String filePath) {
+        try (FileWriter writer = new FileWriter(filePath)) {
+            writer.write(log);
+            System.out.println("Лог успешно записан в файл " + filePath);
+        } catch (IOException e) {
+            System.err.println("Ошибка при записи лога в файл " + filePath + ": " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -106,6 +124,15 @@ public class Main {
         } catch (IOException e) {
             System.err.println("Ошибка при создании архива zip: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+
+    private static void deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (file.delete()) {
+            System.out.println("Удален файл: " + file.getName());
+        } else {
+            System.err.println("Ошибка при удалении файла: " + file.getName());
         }
     }
 

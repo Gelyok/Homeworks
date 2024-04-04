@@ -1,1 +1,10 @@
-Директория C:\Users\HP\IdeaProjects\Installation\Games\src успешно созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\src\main успешно созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\src\test не созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\res успешно созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\res\drawables успешно созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\res\vectors успешно созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\res\icons успешно созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\savegames успешно созданаДиректория C:\Users\HP\IdeaProjects\Installation\Games\temp успешно созданаФайл Main.java успешно созданФайл Util.java успешно созданФайл temp.txt успешно создан
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\src
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\src\main
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\src\test
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\res
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\res\drawables
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\res\vectors
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\res\icons
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\savegames
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\temp
+Файл Main.java успешно созданФайл Util.java успешно созданФайл temp.txt успешно создан
