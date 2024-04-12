@@ -1,0 +1,10 @@
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\src
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\src\main
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\src\test
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\res
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\res\drawables
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\res\vectors
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\res\icons
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\savegames
+Ошибка при создании директории C:\Users\HP\IdeaProjects\Installation\Games\temp
+Файл Main.java успешно созданФайл Util.java успешно созданФайл temp.txt успешно создан
